@@ -1,17 +1,11 @@
 """摘要步骤"""
 
-import sys
-from pathlib import Path
-
-# 添加项目根目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from steps.base import BaseStep
-from core.state import AgentState
-from core.config import CHUNK_MAX_CHARS
-from analysis.strategies import select_strategy
-from analysis.chunker import chunk_by_headings
-from analysis.prompts import SUMMARY_PROMPTS
+from .base import BaseStep
+from ..core.state import AgentState
+from ..core.config import CHUNK_MAX_CHARS
+from ..analysis.strategies import select_strategy
+from ..analysis.chunker import chunk_by_headings
+from ..analysis.prompts import SUMMARY_PROMPTS
 
 
 class SummarizeStep(BaseStep):
@@ -19,7 +13,7 @@ class SummarizeStep(BaseStep):
     
     async def execute(self, state: AgentState, agent) -> AgentState:
         if not state.profile:
-            from analysis.analyzer import analyze
+            from ..analysis.analyzer import analyze
             state.profile = analyze(state.content)
         
         strategy = select_strategy(state.profile)

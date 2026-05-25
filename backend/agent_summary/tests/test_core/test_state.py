@@ -1,15 +1,10 @@
 """测试核心层"""
 
 import pytest
-import sys
-from pathlib import Path
 
-# 添加项目根目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from core.state import ArticleProfile, AgentState
-from core.router import Router
-from core.config import PROMPT_VERSION, CHUNK_MAX_CHARS
+from agent_summary.core.state import ArticleProfile, AgentState
+from agent_summary.core.router import Router
+from agent_summary.core.config import PROMPT_VERSION, CHUNK_MAX_CHARS
 
 
 class TestArticleProfile:

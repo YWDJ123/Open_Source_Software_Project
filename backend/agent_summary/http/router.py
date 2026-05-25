@@ -2,14 +2,14 @@
 
 from fastapi import APIRouter
 
+from ..agent.summary_agent import SummaryAgent
+
 router = APIRouter(prefix="/agents/summary", tags=["agent-summary"])
 
 
 @router.post("/")
 async def summarize(entry_id: str, content: str):
     """摘要单条文章"""
-    from ..agent.summary_agent import SummaryAgent
-    
     agent = SummaryAgent()
     result = await agent.summarize(entry_id, content)
     return result

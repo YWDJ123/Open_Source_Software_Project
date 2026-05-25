@@ -2,23 +2,18 @@
 
 from time import time
 from typing import Any
-import sys
-from pathlib import Path
 
-# 添加项目根目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent.parent))
+from ..core.state import AgentState
+from ..core.router import Router
+from ..core.hooks import HookRegistry
+from ..core.tracer import RunResult, ToolCallRecord
+from ..core.config import PROMPT_VERSION
+from ..tools.base import Tool, ToolRegistry
 
-from core.state import AgentState
-from core.router import Router
-from core.hooks import HookRegistry
-from core.tracer import RunResult, ToolCallRecord
-from core.config import PROMPT_VERSION
-from tools.base import Tool, ToolRegistry
-
-from steps.analyze import AnalyzeStep
-from steps.search import SearchStep
-from steps.summarize import SummarizeStep
-from steps.evaluate import EvaluateStep
+from ..steps.analyze import AnalyzeStep
+from ..steps.search import SearchStep
+from ..steps.summarize import SummarizeStep
+from ..steps.evaluate import EvaluateStep
 
 
 class MockLLM:

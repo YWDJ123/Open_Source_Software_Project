@@ -1,14 +1,8 @@
 """搜索步骤"""
 
-import sys
-from pathlib import Path
-
-# 添加项目根目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from steps.base import BaseStep
-from core.state import AgentState
-from analysis.analyzer import extract_keywords
+from .base import BaseStep
+from ..core.state import AgentState
+from ..analysis.analyzer import extract_keywords
 
 
 class SearchStep(BaseStep):
@@ -23,7 +17,7 @@ class SearchStep(BaseStep):
         search_tool = agent.tools.get("search_web")
         
         if search_tool:
-            from tools.base import invoke_tool_with_retry
+            from ..tools.base import invoke_tool_with_retry
             results = await invoke_tool_with_retry(search_tool, query=" ".join(keywords))
             state.search_results = results
             state.step_history.append("search:execute")

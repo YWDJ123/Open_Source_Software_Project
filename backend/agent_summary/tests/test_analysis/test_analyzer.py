@@ -1,16 +1,11 @@
 """测试分析层"""
 
 import pytest
-import sys
-from pathlib import Path
 
-# 添加项目根目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from analysis.analyzer import analyze, detect_language, classify_article_type, extract_keywords
-from analysis.strategies import select_strategy
-from analysis.chunker import chunk_by_headings, chunk_by_paragraphs
-from core.state import ArticleProfile
+from agent_summary.analysis.analyzer import analyze, detect_language, classify_article_type, extract_keywords
+from agent_summary.analysis.strategies import select_strategy
+from agent_summary.analysis.chunker import chunk_by_headings, chunk_by_paragraphs
+from agent_summary.core.state import ArticleProfile
 
 
 class TestAnalyzer:

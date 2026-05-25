@@ -1,13 +1,8 @@
 """文本分块器"""
 
 import re
-import sys
-from pathlib import Path
 
-# 添加项目根目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from core.config import CHUNK_MAX_CHARS
+from ..core.config import CHUNK_MAX_CHARS
 
 
 def chunk_by_headings(markdown: str, max_chars: int = CHUNK_MAX_CHARS) -> list[str]:

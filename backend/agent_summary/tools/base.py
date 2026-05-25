@@ -4,13 +4,8 @@ from dataclasses import dataclass
 from typing import Callable, Any
 import inspect
 import asyncio
-import sys
-from pathlib import Path
 
-# 添加项目根目录到 Python 路径
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from core.config import DEFAULT_MAX_RETRIES, DEFAULT_TIMEOUT
+from ..core.config import DEFAULT_MAX_RETRIES, DEFAULT_TIMEOUT
 
 
 @dataclass
