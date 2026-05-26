@@ -9,6 +9,7 @@ from ..core.hooks import HookRegistry
 from ..core.tracer import RunResult, ToolCallRecord
 from ..core.config import PROMPT_VERSION
 from ..tools.base import Tool, ToolRegistry
+from ..llm_client import LLMClient
 
 from ..steps.analyze import AnalyzeStep
 from ..steps.search import SearchStep
@@ -26,8 +27,15 @@ class MockLLM:
 class SummaryAgent:
     """摘要 Agent"""
     
-    def __init__(self, llm_provider=None, tools: list[Tool] | None = None):
-        self.llm = llm_provider or MockLLM()
+    def __init__(self, llm_provider=None, tools: list[Tool] | None = None, use_mock: bool = False):
+        # 默认使用真实 LLM，测试时可传入 use_mock=True
+        if llm_provider:
+            self.llm = llm_provider
+        elif use_mock:
+            self.llm = MockLLM()
+        else:
+            self.llm = LLMClient()
+        
         self.tools = ToolRegistry()
         self.hooks = HookRegistry()
         self.router = Router()
@@ -84,7 +92,7 @@ class SummaryAgent:
         )
     
     async def summarize(self, entry_id: str, content: str) -> dict:
-        """主入口：简化版本，用于 MVP 测试"""
+        """主入口"""
         state = AgentState(entry_id=entry_id, content=content)
         state, result = await self.run(state)
         
@@ -92,8 +100,8 @@ class SummaryAgent:
             "entry_id": entry_id,
             "summary_text": state.summary or "",
             "status": "success",
-            "provider": "mock",
-            "model": "mock",
+            "provider": "ecnu",
+            "model": "ecnu-max",
             "steps": result.steps,
             "duration": result.total_duration,
         }

@@ -11,7 +11,7 @@ class TestSummaryAgent:
     
     @pytest.mark.asyncio
     async def test_run_returns_state_and_result(self, short_article):
-        agent = SummaryAgent()
+        agent = SummaryAgent(use_mock=True)
         state = AgentState(entry_id="test-1", content=short_article)
         
         state, result = await agent.run(state)
@@ -23,7 +23,7 @@ class TestSummaryAgent:
     
     @pytest.mark.asyncio
     async def test_run_records_steps(self, short_article):
-        agent = SummaryAgent()
+        agent = SummaryAgent(use_mock=True)
         state = AgentState(entry_id="test-2", content=short_article)
         
         state, result = await agent.run(state)
@@ -35,7 +35,7 @@ class TestSummaryAgent:
     
     @pytest.mark.asyncio
     async def test_summarize_returns_result(self, short_article):
-        agent = SummaryAgent()
+        agent = SummaryAgent(use_mock=True)
         result = await agent.summarize("test-3", short_article)
         
         assert result["entry_id"] == "test-3"
@@ -46,7 +46,7 @@ class TestSummaryAgent:
     @pytest.mark.asyncio
     async def test_long_article_uses_correct_strategy(self, long_article):
         """测试长文章使用正确的策略"""
-        agent = SummaryAgent()
+        agent = SummaryAgent(use_mock=True)
         state = AgentState(entry_id="test-4", content=long_article)
         
         state, result = await agent.run(state)
